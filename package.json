@@ -1,0 +1,10 @@
+{
+  "name": "rate-limit-client",
+  "version": "0.0.0",
+  "description": "A simple client to obey rate limiting rules.",
+  "main": "index.js",
+  "repository": "https://github.com/peopledoc/rate-limit-client",
+  "author": "Xavier Cambar <xcambar@gmail.com>",
+  "license": "MIT",
+  "private": false
+}
