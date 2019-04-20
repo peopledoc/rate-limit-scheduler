@@ -21,9 +21,22 @@ module.exports = function() {
       }
       items = queue.splice(0, qty)
       remaining = Math.max(0, remaining - items.length)
-      inFlight += items.length
       yield items
     }
+  }
+
+  async function _executeCommand (c) {
+    inFlight++
+    let result = await c.job()
+    let {
+      remaining: _remaining = remaining,
+      reset: _reset  = reset
+    } = await c.updater(result)
+    remaining = _remaining
+    reset = _reset
+    threshold = Math.max(threshold, remaining + 1)
+    inFlight--
+    c.resolve(result)
   }
 
   class RateLimiterManager {
@@ -34,22 +47,11 @@ module.exports = function() {
     }
 
     _advanceScheduler() {
-      let timer = setTimeout(()=> {
+      this._currentTimer = setTimeout(()=> {
         let commands = this._activeControl.next().value
-        if (commands.length) {
-          commands.map(async (c)=> {
-            let result = await c.job()
-            let { remaining: _remaining, reset: _reset } = await c.updater(result)
-            remaining = _remaining !== undefined ? _remaining : remaining
-            threshold = Math.max(threshold, remaining + 1)
-            reset = _reset !== undefined ? _reset : reset
-            inFlight--
-            c.resolve(result)
-          })
-        }
+        commands.forEach(_executeCommand)
         this._advanceScheduler()
       }, 0)
-      this._currentTimer = timer
     }
 
     schedule(job, updater) {
