@@ -2,6 +2,7 @@ let RateLimiterManager = require('../build')
 let generateServer = require('../tests/fake-server')
 
 let scheduler = new RateLimiterManager()
+scheduler.start()
 let fakeServer = generateServer()
 
 let updater = function(data) {

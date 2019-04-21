@@ -1,6 +1,7 @@
 let fetch = require('node-fetch')
 let RateLimitScheduler = require('../build')
 let scheduler = new RateLimitScheduler()
+scheduler.start()
 
 function _call() {
   return fetch('https://api.github.com/search/issues\?q\=label:good-first-issue')

@@ -86,7 +86,6 @@ class RateLimitScheduler {
 
   constructor() {
     this._activeControl = _controlGenerator(this._pool)
-    this.start()
   }
 
   private _startSchedule() {
