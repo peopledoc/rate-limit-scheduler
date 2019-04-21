@@ -4,9 +4,9 @@ const range = function(n: number): Array<void> {
   return [...Array(n).values()]
 }
 
-type AsyncFunc = ()=> Promise<any>
-type UpdateFunc = ()=> Process
-type RateLimitUpdateFunc = (_:any)=> RateLimit
+type AsyncFunc = () => Promise<any>
+type UpdateFunc = () => Process
+type RateLimitUpdateFunc = (_: any) => RateLimit
 
 interface Process {
   job: AsyncFunc
@@ -30,7 +30,7 @@ class AsyncPool {
   private _queue: Array<Process> = []
   rateLimit: RateLimit = new RateLimit()
 
-  private async _next (): Promise<any> {
+  private async _next(): Promise<any> {
     let [c] = this._queue.splice(0, 1)
     this._inFlight++
     let result = await c.job()
@@ -61,7 +61,7 @@ class AsyncPool {
 }
 
 const _controlGenerator = function* (pool: AsyncPool) {
-  while(true) {
+  while (true) {
     let qty = 0
     if (pool.rateLimit.reset < Date.now()) {
       pool.rateLimit.remaining = Math.max(pool.rateLimit.remaining, Math.max(0, pool.rateLimit.limit - pool.inFlight))
@@ -89,14 +89,14 @@ class RateLimitScheduler {
   }
 
   private _startSchedule() {
-    this._timer = setInterval(()=> {
+    this._timer = setInterval(() => {
       let quantity: number = this._activeControl.next().value
       this._pool.run(quantity)
     }, 1)
   }
 
   schedule(job: AsyncFunc, updater: RateLimitUpdateFunc): Promise<Process> {
-    return new Promise((resolve)=> {
+    return new Promise((resolve) => {
       let p: Process = { job, updater, resolve }
       this._pool.append(p)
     })
