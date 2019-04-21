@@ -1,5 +1,5 @@
 let fetch = require('node-fetch')
-let RateLimitScheduler = require('../build').default
+let RateLimitScheduler = require('../build')
 let scheduler = new RateLimitScheduler()
 
 function _call() {
