@@ -1,13 +1,28 @@
 {
-  "name": "rate-limit-client",
+  "name": "rate-limit-scheduler",
   "version": "0.0.0",
-  "description": "A simple client to obey rate limiting rules.",
-  "main": "index.js",
-  "repository": "https://github.com/peopledoc/rate-limit-client",
+  "description": "A scheduler to comply to rate limiting rules.",
+  "main": "build/index.js",
+  "repository": "https://github.com/peopledoc/rate-limit-scheduler",
   "author": "Xavier Cambar <xcambar@gmail.com>",
   "license": "MIT",
   "private": false,
-  "dependencies": {
-    "node-fetch": "^2.3.0"
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch",
+    "build": "npm run build:types && npm run build:js",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:js": "babel src --out-dir build --extensions \".ts,.tsx\" --source-maps inline"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.3",
+    "@babel/polyfill": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/preset-typescript": "^7.3.3",
+    "node-fetch": "^2.3.0",
+    "typescript": "^3.4.4"
   }
 }
