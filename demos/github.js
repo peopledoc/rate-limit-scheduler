@@ -27,6 +27,4 @@ for (let i = 0; i < 20; i++) {
   p.push(_p)
 }
 
-Promise.all(p).then(()=> process.exit(0))
-
-// TODO: erreur dès le premier appel
+Promise.all(p).then(()=> scheduler.stop())

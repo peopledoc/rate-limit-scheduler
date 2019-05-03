@@ -23,8 +23,6 @@ for (let i = 0; i < 200; i++) {
 }
 
 Promise.all(promises).then((r)=> {
-  let sorted = r.map(({ index })=> index).sort((a, b)=> a - b)
   fakeServer.shutdown()
-  console.log('All is done!', sorted[0], sorted.slice(-1), sorted.length)
-  process.exit(0)
+  scheduler.stop()
 })
