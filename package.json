@@ -1,6 +1,6 @@
 {
   "name": "rate-limit-scheduler",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A scheduler to comply to rate limiting rules.",
   "main": "build/index.js",
   "repository": "https://github.com/peopledoc/rate-limit-scheduler",
