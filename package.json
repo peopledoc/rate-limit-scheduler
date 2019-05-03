@@ -15,12 +15,14 @@
     "build:js": "babel src --out-dir build --extensions \".ts,.tsx\" --source-maps inline",
     "test": "mocha --reporter spec --require ts-node/register src/**/*.test.ts"
   },
+  "dependencies": {
+    "@babel/polyfill": "^7.4.3"
+  },
   "devDependencies": {
     "@babel/cli": "^7.4.3",
     "@babel/core": "^7.4.3",
     "@babel/plugin-proposal-class-properties": "^7.4.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.4.3",
-    "@babel/polyfill": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
     "@babel/preset-typescript": "^7.3.3",
     "@types/chai": "^4.1.7",
